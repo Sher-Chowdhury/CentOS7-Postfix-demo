@@ -3,8 +3,13 @@
 set -ex
 
 echo '##########################################################################'
-echo '############### About to run samba_client_setup.sh script ##################'
+echo '############### About to run setup_sending_mail_server.sh script ##################'
 echo '##########################################################################'
+
+
+exit 0
+
+
 
 yum -y install samba samba-client cifs-utils
 

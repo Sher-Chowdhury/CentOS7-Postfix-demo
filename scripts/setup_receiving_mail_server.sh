@@ -3,8 +3,17 @@
 set -ex
 
 echo '##########################################################################'
-echo '##### About to run samba_server_setup.sh script ##################'
+echo '##### About to run receiving_mail_server_setup.sh script ##################'
 echo '##########################################################################'
+
+
+exit 0
+
+
+
+
+
+
 
 
 yum -y install samba samba-client
