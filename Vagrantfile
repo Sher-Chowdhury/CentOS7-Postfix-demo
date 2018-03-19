@@ -50,7 +50,7 @@ Vagrant.configure(2) do |config|
     end
 
     mail_sending_server_config.vm.provision "shell", path: "scripts/install-rpms.sh", privileged: true
-    mail_sending_server_config.vm.provision "shell", path: "scripts/mail_sending_server_setup.sh", privileged: true
+    mail_sending_server_config.vm.provision "shell", path: "scripts/setup_mail_sending_server.sh", privileged: true
   end
 
   config.vm.provision :hosts do |provisioner|
