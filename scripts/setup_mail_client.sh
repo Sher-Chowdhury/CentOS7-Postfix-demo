@@ -38,7 +38,7 @@ systemctl enable postfix
 systemctl restart postfix
 
 
-useradd tom 
+useradd matt
 yum install -y mailx
 
 exit 0

@@ -37,6 +37,23 @@ Vagrant.configure(2) do |config|
   end
 
 
+  config.vm.define "mail_client" do |mail_client_config|
+    mail_client_config.vm.box = "bento/centos-7.4"
+    mail_client_config.vm.hostname = "mail-client.example.com"
+    mail_client_config.vm.network "private_network", ip: "10.1.4.12", :netmask => "255.255.255.0", virtualbox__intnet: "intnet2"
+
+    mail_client_config.vm.provider "virtualbox" do |vb|
+      vb.gui = true
+      vb.memory = "1024"
+      vb.cpus = 2
+      vb.name = "centos7_mail_client"
+    end
+
+    mail_client_config.vm.provision "shell", path: "scripts/install-rpms.sh", privileged: true
+    mail_client_config.vm.provision "shell", path: "scripts/setup_mail_client.sh", privileged: true
+  end
+
+
   config.vm.define "null_client" do |null_client_config|
     null_client_config.vm.box = "bento/centos-7.4"
     null_client_config.vm.hostname = "null-client.example.com"
@@ -53,28 +70,8 @@ Vagrant.configure(2) do |config|
     null_client_config.vm.provision "shell", path: "scripts/setup_null_client.sh", privileged: true
   end
 
-  config.vm.provision :hosts do |provisioner|
-    provisioner.add_host '10.1.4.10', ['central-mail-server.example.com']
-    provisioner.add_host '10.1.4.11', ['null-client.example.com']
-  end
 
 
-
-  config.vm.define "mail_client" do |mail_client_config|
-    mail_client_config.vm.box = "bento/centos-7.4"
-    mail_client_config.vm.hostname = "mail-client.example.com"
-    mail_client_config.vm.network "private_network", ip: "10.1.4.12", :netmask => "255.255.255.0", virtualbox__intnet: "intnet2"
-
-    mail_client_config.vm.provider "virtualbox" do |vb|
-      vb.gui = true
-      vb.memory = "1024"
-      vb.cpus = 2
-      vb.name = "centos7_mail_client"
-    end
-
-    mail_client_config.vm.provision "shell", path: "scripts/install-rpms.sh", privileged: true
-    mail_client_config.vm.provision "shell", path: "scripts/setup_mail_client.sh", privileged: true
-  end
 
   config.vm.provision :hosts do |provisioner|
     provisioner.add_host '10.1.4.10', ['central-mail-server.example.com']

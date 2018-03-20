@@ -46,7 +46,8 @@ useradd jerry
 yum install -y mailx
 su -c 'echo "hello tom, this is jerry" | mail -s "test email" tom@central-mail-server.example.com' jerry
 
-
+# the following works as long as I specify an fqdn of target box, if I omit 'mail-client' then it stops working:
 echo "hello tom, this is jerry" | mail -s "test email" matt@mail-client.example.com
 
 # note no need to do any firewalld stuff since service is not listening on any external facing network interfaces
+exit 0
