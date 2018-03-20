@@ -19,7 +19,7 @@ cp /etc/postfix/main.cf /etc/postfix/main.cf-orig
 # this is something needed for our vagrant setup only, since our vagrant setup doesn't include
 # a dns server. 
 postconf -e disable_dns_lookups=yes
-
+postconf -e inet_interfaces='127.0.0.1, 10.1.4.12'
 
 # the following checks for any config related errors. 
 postfix check
@@ -28,25 +28,17 @@ postconf -d
 # this displays all the explicitly defined settings
 postconf -n
 
-postconf -e myhostname=$(hostname)
-postconf -e mydomain=example.com
-postconf -e local_transport='error: this is a null client'
-postconf -e myorigin='$myhostname'
-postconf -e inet_interfaces=loopback-only
-postconf -e mydestination=''           # this is intentionally left blank
-postconf -e mynetworks='127.0.0.0/8 [::1]/128'
-postconf -e relayhost=[central-mail-server.example.com]
 
-postfix check
+firewall-cmd --add-service=smtp --permanent
+systemctl restart firewalld.service
 
 
+
+systemctl enable postfix
 systemctl restart postfix
 
-useradd jerry
+
+useradd tom 
 yum install -y mailx
-su -c 'echo "hello tom, this is jerry" | mail -s "test email" tom@central-mail-server.example.com' jerry
 
-
-echo "hello tom, this is jerry" | mail -s "test email" matt@mail-client.example.com
-
-# note no need to do any firewalld stuff since service is not listening on any external facing network interfaces
+exit 0
