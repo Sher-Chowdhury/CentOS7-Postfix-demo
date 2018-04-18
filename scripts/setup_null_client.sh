@@ -29,13 +29,13 @@ postconf -d
 postconf -n
 
 postconf -e myhostname=$(hostname)
-postconf -e mydomain=example.com
+postconf -e mydomain=cb.net
 postconf -e local_transport='error: this is a null client'
 postconf -e myorigin='$myhostname'
 postconf -e inet_interfaces=loopback-only
 postconf -e mydestination=''           # this is intentionally left blank
 postconf -e mynetworks='127.0.0.0/8 [::1]/128'
-postconf -e relayhost=[central-mail-server.example.com]
+postconf -e relayhost=[central-mail-server.cb.net]
 
 postfix check
 
@@ -44,10 +44,10 @@ systemctl restart postfix
 
 useradd jerry
 yum install -y mailx
-su -c 'echo "hello tom, this is jerry" | mail -s "test email" tom@central-mail-server.example.com' jerry
+su -c 'echo "hello tom, this is jerry" | mail -s "test email" tom@central-mail-server.cb.net' jerry
 
 # the following works as long as I specify an fqdn of target box, if I omit 'mail-client' then it stops working:
-echo "hello tom, this is jerry" | mail -s "test email" matt@mail-client.example.com
+echo "hello tom, this is jerry" | mail -s "test email" matt@mail-client.cb.net
 
 # note no need to do any firewalld stuff since service is not listening on any external facing network interfaces
 exit 0

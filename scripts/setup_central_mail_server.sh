@@ -10,7 +10,7 @@ yum install -y postfix
 cp /etc/postfix/main.cf /etc/postfix/main.cf-orig
 
 postconf -e myhostname=$(hostname)
-postconf -e mydomain=example.com
+postconf -e mydomain=cb.net
 postconf -e myorigin='$myhostname'
 postconf -e inet_interfaces=all
 postconf -e mydestination='$myhostname, localhost.$mydomain, localhost, $mydomain'
