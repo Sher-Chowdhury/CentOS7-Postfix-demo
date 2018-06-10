@@ -19,7 +19,7 @@ end
 
 Vagrant.configure(2) do |config|
   config.vm.define "central_mail_server" do |central_mail_server_config|
-    central_mail_server_config.vm.box = "bento/centos-7.4"
+    central_mail_server_config.vm.box = "bento/centos-7.5"
     central_mail_server_config.vm.hostname = "central-mail-server.cb.net"
     # https://www.vagrantup.com/docs/virtualbox/networking.html
     central_mail_server_config.vm.network "private_network", ip: "10.1.4.10", :netmask => "255.255.255.0", virtualbox__intnet: "intnet2"
@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
 
 
   config.vm.define "mail_client" do |mail_client_config|
-    mail_client_config.vm.box = "bento/centos-7.4"
+    mail_client_config.vm.box = "bento/centos-7.5"
     mail_client_config.vm.hostname = "mail-client.cb.net"
     mail_client_config.vm.network "private_network", ip: "10.1.4.12", :netmask => "255.255.255.0", virtualbox__intnet: "intnet2"
 
@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
 
 
   config.vm.define "null_client" do |null_client_config|
-    null_client_config.vm.box = "bento/centos-7.4"
+    null_client_config.vm.box = "bento/centos-7.5"
     null_client_config.vm.hostname = "null-client.cb.net"
     null_client_config.vm.network "private_network", ip: "10.1.4.11", :netmask => "255.255.255.0", virtualbox__intnet: "intnet2"
 

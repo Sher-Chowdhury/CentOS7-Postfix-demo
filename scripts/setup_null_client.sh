@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+exit 0
 set -ex
 
 echo '##########################################################################'
@@ -25,6 +25,8 @@ postconf -e disable_dns_lookups=yes
 postfix check
 # this deisplays all the default settings
 postconf -d
+
+
 # this displays all the explicitly defined settings
 postconf -n
 
